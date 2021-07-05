@@ -10,9 +10,9 @@ namespace Google.Cloud.shinyay
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args)
-            .Build()
-            .Run();
+            CreateHostBuilder(args)
+                .Build()
+                .Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
@@ -22,12 +22,10 @@ namespace Google.Cloud.shinyay
                 .UseStartup<Startup>();
             return builder;
         }
-        
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => {
-                    webBuilder.UseStartup<Startup>();
-                })
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
 
                 //Steeltoe actuators
                 .AddHealthActuator()
