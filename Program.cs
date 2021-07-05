@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Steeltoe.Extensions.Logging;
+using Steeltoe.Management.Endpoint;
 
 namespace Google.Cloud.shinyay
 {
@@ -20,5 +22,19 @@ namespace Google.Cloud.shinyay
                 .UseStartup<Startup>();
             return builder;
         }
+        
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder => {
+                    webBuilder.UseStartup<Startup>();
+                })
+
+                //Steeltoe actuators
+                .AddHealthActuator()
+                .AddInfoActuator()
+                .AddLoggersActuator()
+
+                //Steeltoe dynamic logging
+                .AddDynamicLogging();
     }
 }

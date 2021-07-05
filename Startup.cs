@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Steeltoe.Management.Endpoint;
-using Steeltoe.Extensions.Logging;
 
 namespace Google.Cloud.shinyay
 {
@@ -39,20 +38,5 @@ namespace Google.Cloud.shinyay
             app.UseRouting();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
-        
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => {
-                    webBuilder.UseStartup<Startup>();
-                })
-
-                //Steeltoe actuators
-                .AddHealthActuator()
-                .AddInfoActuator()
-                .AddLoggersActuator()
-
-                //Steeltoe dynamic logging
-                .AddDynamicLogging()
-        ;
     }
 }
