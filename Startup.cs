@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Steeltoe.Management.Endpoint;
+using Steeltoe.Management.Tracing;
 
 namespace Google.Cloud.shinyay
 {
@@ -20,9 +21,9 @@ namespace Google.Cloud.shinyay
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAllActuators(Configuration);
-
-
             services.AddControllers();
+            //Steeltoe distributed tracing
+            services.AddDistributedTracing(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,9 +33,7 @@ namespace Google.Cloud.shinyay
             {
                 app.UseDeveloperExceptionPage();
             }
-
-
-
+            
             app.UseRouting();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
